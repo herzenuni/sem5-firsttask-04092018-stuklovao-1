@@ -11,7 +11,7 @@ except RangeException:
 
 
 t=str(input('Введите систему счисления - ')) 
-def print_number_and_word(number, t=''): 
+def func(number, t=''): 
 
     if (number == 0):
       print("\n Ноль")
@@ -44,4 +44,4 @@ def print_number_and_word(number, t=''):
     elif t == 'hex':
       print(hex(number))
 
-print_number_and_word(number,t) 
+func(number,t) 
