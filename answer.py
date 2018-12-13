@@ -1,16 +1,9 @@
 class RangeException(Exception):
- pass
+ def __init__(self,text):
+        RangeException.txt = text
 
-try:
-    number = int(input('Введите число от 0 до 9: '))
-    if ((number<0) | (number>9)):
-      raise RangeException('Введенное число не входит в указанный интервал')    
-except RangeException:
-    print('Введенное число не подходит, попробуйте ввести число еще раз')
-    number = int(input('Введите число от 0 до 9: '))
+logger = []
 
-
-t=str(input('Введите систему счисления - ')) 
 def func(number, t=''): 
 
     if (number == 0):
@@ -44,4 +37,17 @@ def func(number, t=''):
     elif t == 'hex':
       print(hex(number))
 
-func(number,t) 
+t=str(input('Введите систему счисления - ')) 
+
+try:
+    number = int(input('Введите число от 0 до 9: '))
+    if ((number<0) | (number>9)):
+      raise RangeException('Введенное число не входит в указанный интервал')    
+    else:
+      print(func(number, t)) 
+      with open('Record.txt', 'a') as f:
+        f.write('Число:' + str(number) + '\nТип:' + str(t)+"\n") 
+except RangeException:
+  print(RangeException.txt)
+except ValueError:
+  print("Введено неверное значение числа")
