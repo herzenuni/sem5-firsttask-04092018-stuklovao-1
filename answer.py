@@ -1,53 +1,45 @@
 class RangeException(Exception):
- def __init__(self,text):
+  def __init__(self,text):
         RangeException.txt = text
 
-logger = []
+numbers = ['ноль','один','два','три','четыре','пять','шесть','семь','восемь','девять']
+types = ['bin', 'oct', 'hex']
 
-def func(number, t=''): 
-
-    if (number == 0):
-      print("\n Ноль")
-    elif (number == 1):
-      print("\n Один")
-    elif (number == 2):
-      print("\n Два")
-    elif (number == 3):
-      print("\n Три")
-    elif (number == 4):
-      print("\n Четыре")
-    elif (number == 5):
-      print("\n Пять")
-    elif (number == 6):
-      print("\n Шесть")
-    elif (number == 7):
-      print("\n Семь")
-    elif (number == 8):
-      print("\n Восемь")
-    elif (number == 9):
-      print("\n Девять")
-    else:
-      print("Начните сначала")
+a =  input("Введите один из типов hex, oct, bin:")
 
 
-    if t == 'bin':
-      print(bin(number))
-    elif t == 'oct':
-      print(oct(number))
-    elif t == 'hex':
-      print(hex(number))
+def func(x, num_type):
+  if num_type in types and num_type != "" and x in range(0,10):
+    if (num_type == 'hex'):
+      return hex(x)
+    elif (num_type == 'oct'):
+      return oct(x)
+    elif (num_type == 'bin'):
+      return bin(x)
 
-t=str(input('Введите систему счисления - ')) 
+  if x in range(0,10):
+    return numbers[x] 
+  else:
+    return "Неверное значение"
+
 
 try:
-    number = int(input('Введите число от 0 до 9: '))
-    if ((number<0) | (number>9)):
-      raise RangeException('Введенное число не входит в указанный интервал')    
-    else:
-      print(func(number, t)) 
+  num =  int(input("Введите число от 0 до 9:"))
+  if ((num<0) | (num>9)):
+      raise RangeException('Введено неверное значение числа') 
+  else:
+      print(func(num, a)) 
       with open('Record.txt', 'a') as f:
-        f.write('Число:' + str(number) + '\nТип:' + str(t)+"\n") 
+        f.write('Numbers:'"\n" + str(num) + 'Type:' + str(a)+"\n") 
 except RangeException:
   print(RangeException.txt)
 except ValueError:
   print("Введено неверное значение числа")
+
+def test():
+  assert func(9, 'oct') == '0o11'
+  assert func('qw', 'oct') == 'Неверное значение'
+  assert func(5, 'qwer') == 'пять'
+
+test()
+ 
